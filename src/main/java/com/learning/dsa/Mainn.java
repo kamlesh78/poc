@@ -3,16 +3,22 @@ package com.learning.dsa;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 public class Mainn {
 
     public static void main(String[] args){
-        int[] arr  = new int[]{94,-33,-13,40,-82,94,-33,-13,40,-82};
-        int k = 52;
-        int i = longestSubarray(arr, k);
+
+        List<String> inte = new ArrayList<>(Arrays.asList("aa","aaaa","aaa"));
+        inte.sort(new Compare());
+        log.info("Comparator :: {}",inte);
+//
+//        char[] chars = new char[]{'a','a','b','b','c','c','c'};
+//        int compress = compress(chars);
+//        int[] arr  = new int[]{94,-33,-13,40,-82,94,-33,-13,40,-82};
+//        int k = 52;
+//        int i = longestSubarray(arr, k);
 //        System.out.println(i);
 
 //        int[] arr = new int[]{1,2,3};
@@ -50,8 +56,29 @@ public class Mainn {
 //        }
 //        return maxOccurence;
 //    }
+public static int compress(char[] chars) {
+    int i=0;
+    int j=1;
+    List<String> test = new ArrayList<>();
+    int counter = 1;
+    while(j<chars.length){
+        if(chars[i] == chars[j]){
+            counter+=1;
+        }else{
+            test.add(String.valueOf(chars[i]));
+            if(counter > 1)
+                test.add(String.valueOf(counter));
+            counter = 1;
+            i = j;
+        }
 
-    public static int longestSubarray(int[] arr, int k) {
+        j++;
+    }
+
+    return test.size();
+}
+
+public static int longestSubarray(int[] arr, int k) {
         // code here
 
         int sum =0;
@@ -69,5 +96,14 @@ public class Mainn {
 
         }
         return max+1;
+    }
+
+
+}
+class Compare implements Comparator<String>{
+
+    @Override
+    public int compare(String o1, String o2) {
+        return o1.length()-o2.length();
     }
 }
